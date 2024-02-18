@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBClassLibrary.Entities
+namespace allfree.DBClassLibrary.Entities.Master
 {
     [Table("m_sex")]
     public class m_sex : DbColumnBase

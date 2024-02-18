@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBClassLibrary.Entities
+namespace allfree.DBClassLibrary.Entities.Master
 {
-    [Table ( "m_user" )]
+    [Table("m_user")]
     public class m_user : DbColumnBase
     {
         /// <summary>

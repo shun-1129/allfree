@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBClassLibrary.Entities
+namespace allfree.DBClassLibrary.Entities.Master
 {
-    [Table( "m_language" )]
+    [Table("m_language")]
     public class m_language : DbColumnBase
     {
         /// <summary>

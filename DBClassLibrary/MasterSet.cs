@@ -1,6 +1,6 @@
-﻿using DBClassLibrary.Entities;
+﻿using allfree.DBClassLibrary.Entities.Master;
 
-namespace DBClassLibrary
+namespace allfree.DBClassLibrary
 {
     public class MasterSet
     {

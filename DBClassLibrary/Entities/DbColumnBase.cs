@@ -1,11 +1,14 @@
-﻿namespace DBClassLibrary.Entities
+﻿namespace allfree.DBClassLibrary.Entities
 {
+    /// <summary>
+    /// DB共通カラム定義
+    /// </summary>
     public class DbColumnBase
     {
         /// <summary>
         /// 作成日時
         /// </summary>
-        public DateTime create_at {  get; set; }
+        public DateTime create_at { get; set; }
 
         /// <summary>
         /// 作成者

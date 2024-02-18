@@ -1,8 +1,9 @@
-﻿using DBClassLibrary.Entities;
+﻿using allfree.DBClassLibrary.Entities.Master;
+using allfree.DBClassLibrary.Entities.System;
+using allfree.DBClassLibrary.Entities.Transaction;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
-namespace DBClassLibrary
+namespace allfree.DBClassLibrary
 {
     public class ApplicationDbContext : DbContext
     {
@@ -76,9 +77,21 @@ namespace DBClassLibrary
             #endregion
 
             #region システムテーブル
+            // システムステータステーブル定義
+            modelBuilder.Entity<s_system_status> ( entity =>
+            {
+                // 主キー定義
+                entity.HasKey ( e => e.system_id );
+            } );
             #endregion
 
             #region トランザクションテーブル
+            // ユーザテーブル定義
+            modelBuilder.Entity<t_user> ( entity =>
+            {
+                // 主キー定義
+                entity.HasKey ( e => new { e.id , e.user_id } );
+            } );
             #endregion
         }
         #endregion
@@ -104,9 +117,14 @@ namespace DBClassLibrary
         #endregion
 
         #region システムテーブル
+        /// <summary>
+        /// システムステータステーブル
+        /// </summary>
+        public DbSet<s_system_status> s_System_Statuses { get; set; }
         #endregion
 
         #region トランザクションテーブル
+        public DbSet<t_user> t_users { get; set; }
         #endregion
         #endregion
     }
