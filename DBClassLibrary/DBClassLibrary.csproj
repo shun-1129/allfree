@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="call ../dll_copy $(ConfigurationName) $(ProjectDir) $(ProjectName)" />
+    <Exec Command="call ../dll_copy $(ProjectDir) $(OutDir) $(ProjectName)" />
   </Target>
 
 </Project>
