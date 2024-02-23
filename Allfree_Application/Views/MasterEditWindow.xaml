@@ -8,10 +8,38 @@
         mc:Ignorable="d"
         Title="MasterEditWindow" Height="450" Width="800"
         WindowStartupLocation="CenterOwner">
-    <!--<Window.DataContext>
-        <vm:MasterEditWindowViewModel />
-    </Window.DataContext>-->
-    <Grid>
-        
-    </Grid>
+    <StackPanel Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Vertical" Margin="0, 0, 10, 0">
+                    <Button Content="性別マスタ" Height="30" Margin="0, 0, 0, 10"
+                            Command="{Binding MasterSexBtn}" CommandParameter="m_sex"/>
+                    <Button Content="ユーザマスタ" Height="30" Margin="0, 0, 0, 10"
+                            Command="{Binding MasterUserBtn}" CommandParameter="m_user"/>
+                    <Button Content="言語マスタ" Height="30" Margin="0, 0, 0, 10"
+                            Command="{Binding MasterLanguageBtn}" CommandParameter="m_language"/>
+                    <Button Content="秘密の質問マスタ" Height="30" Margin="0, 0, 0, 10"
+                            Command="{Binding MasterSecretQuestionBtn}" CommandParameter="m_secret_question"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <StackPanel>
+                    <DataGrid x:Name="dynamicDataGrid" ItemsSource="{Binding GridItem}" HeadersVisibility="Column" AutoGenerateColumns="False">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                    </DataGrid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </StackPanel>
 </Window>

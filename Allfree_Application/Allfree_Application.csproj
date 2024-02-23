@@ -9,11 +9,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.16" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="CommonLibrary">
       <HintPath>..\CommonLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="PostgresqlDBEntity">
+      <HintPath>..\PostgresqlDBEntity.dll</HintPath>
     </Reference>
     <Reference Include="SQLiteDBEntity">
       <HintPath>..\SQLiteDBEntity.dll</HintPath>

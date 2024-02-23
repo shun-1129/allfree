@@ -14,25 +14,31 @@
             <ColumnDefinition Width="{Binding UserControlWidth}" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-        <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="{Binding BtnTitle}" Command="{Binding MasterEditWindowOpenBtn}"
-            Width="200" Height="50" FontSize="30"/>
-        </StackPanel>-->
-
+        
         <Grid Grid.Column="0">
             <Grid.Resources>
                 <DataTemplate DataType="{x:Type vmuc:MainWindowViewMenuViewModel}">
                     <localuc:MainWindowViewMenu/>
                 </DataTemplate>
             </Grid.Resources>
-            <ContentControl Content="{Binding ActiveView}"/>
+            <ContentControl Content="{Binding MenuActiveView}"/>
         </Grid>
         <Grid Grid.Column="1">
-            <Button Content="{Binding SettingBtnContent}" FontSize="18"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="LightYellow">
+                <Button Content="{Binding SettingBtnContent}" FontSize="18"
                     Width="60" Height="30"
-                    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5, 5, 0, 0"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5, 5, 0, 5"
                     Command="{Binding SettingMenuBtn}"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Background="LightGray">
+                
+            </Grid>
         </Grid>
     </Grid>
 </Window>

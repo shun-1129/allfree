@@ -1,10 +1,13 @@
-﻿using Allfree_Application.Logics;
-using Allfree_Application.Views;
+﻿using Allfree_Application.Views;
 using Allfree_Application.ViewModels.UserControls;
 using CommonLibrary.Command;
 using CommonLibrary.ViewModelBase;
 using SQLiteDBEntity.Entities.System;
 using System.Windows;
+using Allfree_Application.Commons;
+using Allfree_Application.Logics.DBAccessor;
+using System.Collections.Generic;
+using PostgresqlDBEntity.Entities.Master;
 
 namespace Allfree_Application.ViewModels
 {
@@ -30,17 +33,17 @@ namespace Allfree_Application.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        private ViewModelBase _activeView;
+        private ViewModelBase _menuActiveView = new ViewModelBase();
         #endregion
 
         #region プロパティ
-        public ViewModelBase ActiveView
+        public ViewModelBase MenuActiveView
         {
-            get { return _activeView; }
+            get { return _menuActiveView; }
             set
             {
-                _activeView = value;
-                RaisePropertyChanged(nameof(ActiveView));
+                _menuActiveView = value;
+                RaisePropertyChanged(nameof(MenuActiveView));
             }
         }
         /// <summary>
@@ -59,10 +62,6 @@ namespace Allfree_Application.ViewModels
         /// 
         /// </summary>
         public DelegateCommand SettingMenuBtn { get; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public DelegateCommand MasterEditWindowOpenBtn { get; }
         /// <summary>
         /// 
         /// </summary>
@@ -93,9 +92,21 @@ namespace Allfree_Application.ViewModels
         public MainWindowViewModel( MainWindow mainWindow )
         {
             SettingMenuBtn = new DelegateCommand ( SettingMenuOpenClose );
-            //MasterEditWindowOpenBtn = new DelegateCommand ( MasterEditWindowOpen );
             BtnTitle = "サブオープン";
             _mainWindow = mainWindow;
+
+            if ( !PosgresqlDBAccessor.Instance.DBOpen () )
+            {
+                MessageBox.Show ( "DB切断失敗" );
+                PosgresqlDBAccessor.Instance.DBClose ();
+            }
+            else
+            {
+                PosgresqlDBAccessor.Instance.ReadMasterEditPassword ();
+                PosgresqlDBAccessor.Instance.ReadMasterTableData ();
+
+                List<m_sex> list = PosgresqlDBAccessor.Instance.MasterSet.m_sexes;
+            }
         }
         #endregion
 
@@ -109,7 +120,7 @@ namespace Allfree_Application.ViewModels
             {
                 UserControlWidth = 200;
                 SettingBtnContent = "閉じる";
-                ActiveView = new MainWindowViewMenuViewModel ( this );
+                MenuActiveView = new MainWindowViewMenuViewModel ( this );
             }
             else
             {
@@ -136,12 +147,18 @@ namespace Allfree_Application.ViewModels
             if ( systemPasswordInputWindowViewModel.Ok && !systemPasswordInputWindowViewModel.Cancel )
             {
                 string password = systemPasswordInputWindowViewModel.Password;
-                s_master_edit_password masterEditPassword = DBAccessor.Instance.GetMasterEditPassword(1, password);
+                string masterEditPassword = PosgresqlDBAccessor.Instance.MasterEditPassword;
 
-                if ( masterEditPassword != null )
+                // マスタ変更パスワードが正しいか
+                if ( !masterEditPassword.Equals(password) )
+                {
+                    masterEditPassword = string.Empty;
+                }
+
+                if ( masterEditPassword != null && masterEditPassword != "" )
                 {
                     // マスタテーブル変更ウィンドウをインスタンス化
-                    MasterEditWindow masterEditWindow = new MasterEditWindow(new MasterEditWindowViewModel(this))
+                    MasterEditWindow masterEditWindow = new MasterEditWindow()
                     {
                         Owner = _mainWindow,
                         WindowStartupLocation = WindowStartupLocation.CenterOwner,
@@ -149,6 +166,10 @@ namespace Allfree_Application.ViewModels
                     };
                     // マスタテーブル変更ウィンドウを開く
                     masterEditWindow.ShowDialog ();
+                }
+                else
+                {
+                    MessageBox.Show("パスワードが間違っています。", "ErrorMessage", MessageBoxButton.OK, MessageBoxImage.Error );
                 }
             }
         }
