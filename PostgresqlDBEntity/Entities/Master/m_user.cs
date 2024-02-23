@@ -1,22 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBClassLibrary.Entities
+namespace PostgresqlDBEntity.Entities.Master
 {
-    [Table("m_sex")]
-    public class m_sex : DbColumnBase
+    [Table("m_user")]
+    public class m_user : DbColumnBase
     {
         /// <summary>
-        /// 性別マスタID
+        /// ユーザマスタID
         /// </summary>
         [Key]
-        public int m_sex_id { get; set; }
+        [Required]
+        public int m_user_id { get; set; }
 
         /// <summary>
-        /// 性別情報
+        /// ユーザマスタ情報
         /// </summary>
         [Required]
-        public string sex_info { get; set; } = string.Empty;
+        public string user_info { get; set; } = string.Empty;
 
         /// <summary>
         /// 論理削除

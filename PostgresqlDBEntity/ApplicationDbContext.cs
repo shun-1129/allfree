@@ -1,8 +1,9 @@
-﻿using DBClassLibrary.Entities;
+﻿using PostgresqlDBEntity.Entities.Master;
+using PostgresqlDBEntity.Entities.System;
+using PostgresqlDBEntity.Entities.Transaction;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
-namespace DBClassLibrary
+namespace PostgresqlDBEntity
 {
     public class ApplicationDbContext : DbContext
     {
@@ -76,9 +77,28 @@ namespace DBClassLibrary
             #endregion
 
             #region システムテーブル
+            // システムステータステーブル定義
+            modelBuilder.Entity<s_system_status> ( entity =>
+            {
+                // 主キー定義
+                entity.HasKey ( e => e.system_id );
+            } );
+
+            // マスタ変更パスワードテーブル定義
+            modelBuilder.Entity<s_master_edit_password> ( entity =>
+            {
+                // 主キー定義
+                entity.HasKey ( e => e.system_id );
+            } );
             #endregion
 
             #region トランザクションテーブル
+            // ユーザテーブル定義
+            modelBuilder.Entity<t_user> ( entity =>
+            {
+                // 主キー定義
+                entity.HasKey ( e => new { e.id , e.user_id } );
+            } );
             #endregion
         }
         #endregion
@@ -104,9 +124,18 @@ namespace DBClassLibrary
         #endregion
 
         #region システムテーブル
+        /// <summary>
+        /// システムステータステーブル
+        /// </summary>
+        public DbSet<s_system_status> s_system_statuses { get; set; }
+        /// <summary>
+        /// マスタ変更パスワードテーブル
+        /// </summary>
+        public DbSet<s_master_edit_password> s_master_edit_passwords { get; set; }
         #endregion
 
         #region トランザクションテーブル
+        public DbSet<t_user> t_users { get; set; }
         #endregion
         #endregion
     }

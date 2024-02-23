@@ -1,6 +1,6 @@
-﻿using DBClassLibrary.Entities;
+﻿using PostgresqlDBEntity.Entities.Master;
 
-namespace DBClassLibrary
+namespace PostgresqlDBEntity
 {
     public class MasterSet
     {

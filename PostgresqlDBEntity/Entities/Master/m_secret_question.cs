@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DBClassLibrary.Entities
+namespace PostgresqlDBEntity.Entities.Master
 {
-    [Table( "m_secret_question" )]
+    [Table("m_secret_question")]
     public class m_secret_question : DbColumnBase
     {
         /// <summary>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="Allfree_Application.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Allfree_Application"
+        xmlns:localuc="clr-namespace:Allfree_Application.Views.UserControls"
+        xmlns:vm="clr-namespace:Allfree_Application.ViewModels"
+        xmlns:vmuc="clr-namespace:Allfree_Application.ViewModels.UserControls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="950">
+    <Grid Background="LightGreen">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{Binding UserControlWidth}" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0">
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type vmuc:MainWindowViewMenuViewModel}">
+                    <localuc:MainWindowViewMenu/>
+                </DataTemplate>
+            </Grid.Resources>
+            <ContentControl Content="{Binding MenuActiveView}"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="LightYellow">
+                <Button Content="{Binding SettingBtnContent}" FontSize="18"
+                    Width="60" Height="30"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5, 5, 0, 5"
+                    Command="{Binding SettingMenuBtn}"/>
+            </Grid>
+
+            <Grid Grid.Row="1" Background="LightGray">
+                
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
